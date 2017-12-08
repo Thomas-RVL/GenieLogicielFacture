@@ -1,13 +1,22 @@
 package facture;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Facture {
+    
+    protected int numero;
+    protected Date emission;
+    protected Client destinataire;
+    ArrayList <LigneFacture> lfacture = new ArrayList<>();
 
+    
     public Facture(Client destinataire, Date emission, int numero) {
-         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        this.numero = numero;
+        this.emission = emission;
+        this.destinataire = destinataire;
+
     }
 
     /**
@@ -16,8 +25,7 @@ public class Facture {
      * @return the value of numero
      */
     public int getNumero() {
-         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        return numero;
     }
 
     /**
@@ -26,8 +34,7 @@ public class Facture {
      * @return the value of emission
      */
     public Date getEmission() {
-         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        return emission;
     }
 
     /**
@@ -36,25 +43,28 @@ public class Facture {
      * @return the value of destinataire
      */
     public Client getDestinataire() {
-         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        return destinataire;
     }
-
 
     
     public void ajouteLigne(Article a, int nombre, float remise) {
-         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        LigneFacture newLigne = new LigneFacture(nombre, this, a, remise);
+        lfacture.add(newLigne);
    }
     
    public float montantTTC(float tauxTVA) {
-         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        float ttc = 0;
+        for (LigneFacture l : lfacture){
+            ttc += l.montantLigne() * (1 + tauxTVA);
+        }
+        return ttc;
    }
    
    public void print(PrintStream out, float tva) {
-         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+       for (int i = 0; i < this.lfacture.size(); i++) {
+           out.println(lfacture.toString() + tva);
+       }
+        
    }
    
 }
